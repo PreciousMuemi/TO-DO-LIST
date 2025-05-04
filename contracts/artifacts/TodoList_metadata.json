@@ -258,38 +258,38 @@
 			}
 		],
 		"devdoc": {
-			"details": "This contract is basically my life organized on the blockchain. It's a todo list for a 21-year-old navigating life, code, and vibes.",
+			"details": "This contract is basically my life organized on the blockchain. It's a todo list for a 21-year-old navigating life, code, and vibes. It allows adding, updating, and managing daily tasks on the blockchain.",
 			"kind": "dev",
 			"methods": {
 				"addTodo(string)": {
-					"details": "Add a new task to the list. Public facing function.",
+					"details": "Adds a new task to the list. Public facing function.",
 					"params": {
-						"_content": "The description of the task."
+						"_content": "The description of the task. Cannot be an empty string."
 					}
 				},
 				"constructor": {
 					"details": "Constructor: Contract created! Let's pre-fill some realistic tasks. This is where the daily grind gets listed."
 				},
 				"deleteTodo(uint256)": {
-					"details": "Mark a todo as deleted. On blockchain, we usually mark instead of truly deleting.",
+					"details": "Marks a todo as deleted. On blockchain, we usually mark instead of truly deleting.",
 					"params": {
 						"_id": "The ID of the task to delete."
 					}
 				},
 				"getAllTodoIds()": {
-					"details": "Get all the todo IDs. Useful for frontends to iterate through tasks.",
+					"details": "Gets all the todo IDs. Useful for frontends to iterate through tasks.",
 					"returns": {
 						"_0": "An array of all todo IDs."
 					}
 				},
 				"getAllTodos()": {
-					"details": "Get all todo items. This iterates through all IDs and fetches each todo. Note: This can be gas-intensive for a very large number of todos.",
+					"details": "Gets all todo items. This iterates through all IDs and fetches each todo. Note: This can be gas-intensive for a very large number of todos.",
 					"returns": {
 						"_0": "An array of all Todo structs."
 					}
 				},
 				"getTodo(uint256)": {
-					"details": "Get the details of a specific task.",
+					"details": "Gets the details of a specific task.",
 					"params": {
 						"_id": "The ID of the task to retrieve."
 					},
@@ -301,20 +301,20 @@
 					}
 				},
 				"getTotalTodos()": {
-					"details": "Get the total number of tasks in the list (including deleted ones).",
+					"details": "Gets the total number of tasks in the list (including deleted ones).",
 					"returns": {
 						"_0": "The total count of tasks added."
 					}
 				},
 				"updateContent(uint256,string)": {
-					"details": "Update the content of a task. Need to rephrase something?",
+					"details": "Updates the content of a task. Need to rephrase something?",
 					"params": {
 						"_id": "The ID of the task to update.",
-						"_newContent": "The new description of the task."
+						"_newContent": "The new description of the task. Cannot be an empty string."
 					}
 				},
 				"updateStatus(uint256,uint8)": {
-					"details": "Update the status of a task. Did I finish it? Am I working on it?",
+					"details": "Updates the status of a task. Did I finish it? Am I working on it?",
 					"params": {
 						"_id": "The ID of the task to update.",
 						"_status": "The new status (Pending, InProgress, Completed, Deleted)."
@@ -347,11 +347,11 @@
 	},
 	"sources": {
 		"contracts/TodoList.sol": {
-			"keccak256": "0x8ef1b06e227a6f692785a077027c2cfd0cb5b5188b23c22d39d43e9366fa0381",
+			"keccak256": "0x8f8a66aff09bfd4276d77ef6854d5288b6e8c8331b39c63a314c37538cdc1209",
 			"license": "MIT",
 			"urls": [
-				"bzz-raw://b3c038a0e283e66d732fa7a006b2da01a40bd8e8426988e4466e78d7cf36c781",
-				"dweb:/ipfs/QmUxVcVanmLpVWk9rqMZKZAecAv6KyTGFbycoSBoEDbuXN"
+				"bzz-raw://961989498bea9ebdcdfcda4e606628c00033efee547b74a4ae70b6e5e76dabcc",
+				"dweb:/ipfs/QmQvqpRFJ87MN8AZd3nJU6fsYi5pNJuSs58an5CKE4nKsc"
 			]
 		}
 	},

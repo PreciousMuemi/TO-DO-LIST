@@ -81,4 +81,4 @@ Let's make it better together!
 📜 License
 This project is licensed under the MIT License. See the LICENSE file for details (Note: The contract code itself uses // SPDX-License-Identifier: MIT).
 
-Built with vibes and Solidity for the Lisk Africa Developer's Bootcamp Week 3. Let's get this bread (and check off those todos)! 💪
+Built with vibes and Solidity for the Lisk Africa Developer's Bootcamp Week 3. Let's get this bread (and check off those todos)! 

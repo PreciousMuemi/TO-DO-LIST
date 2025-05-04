@@ -5,15 +5,16 @@ pragma solidity ^0.8.0; // I'm using a modern version, obviously.
  * @title TodoList
  * @dev This contract is basically my life organized on the blockchain.
  * It's a todo list for a 21-year-old navigating life, code, and vibes.
+ * It allows adding, updating, and managing daily tasks on the blockchain.
  */
 contract TodoList {
 
     // 1. Todo Status Enum: Gotta know if it's pending, in progress, or DONE! ✅
     enum TodoStatus {
         Pending,    // Haven't started yet, still processing...
-        InProgress, // Grinding! Let's gooo! 
-        Completed,  // Nailed it! Done and dusted! 
-        Deleted     // Task is gone, reduced to atoms.  (Adding this for frontend delete functionality)
+        InProgress, // Grinding! Let's gooo! 💪
+        Completed,  // Nailed it! Done and dusted! ✨
+        Deleted     // Task is gone, reduced to atoms. 🔥 (Adding this for frontend delete functionality)
     }
 
     // 2. Todo Struct: Blueprint for each task in my day.
@@ -50,23 +51,22 @@ contract TodoList {
     constructor() {
         nextTodoId = 0; // Start the ID count.
 
-        // Adding some initial tasks for a typical day:
-        _addTodoInternal("07:00 - Alarm goes off. Hit snooze? Maybe once... or twice.");
+        // Adding some initial tasks for a typical day:");
         _addTodoInternal("07:15 - Okay, ACTUALLY get out of bed. Make it look presentable, mom might check.");
         _addTodoInternal("07:30 - Shower time! Gotta look fresh for the world (or just Zoom).");
-        _addTodoInternal("08:00 - Quick breakfast. Cereal? Toast? Whatever's fastest. ");
-        _addTodoInternal("08:30 - Commute/Get ready for online classes. Vibe check: ready. ");
-        _addTodoInternal("09:00 - Attend Morning Classes. Try not to fall asleep. ");
-        _addTodoInternal("12:00 - Lunch break! Refuel time. What's cooking?");
+        _addTodoInternal("08:00 - Quick breakfast. Cereal? Toast? Whatever's fastest.");
+        _addTodoInternal("08:30 - Commute/Get ready for online classes. Vibe check: ready.");
+        _addTodoInternal("09:00 - Attend Morning Classes. Try not to fall asleep.");
+        _addTodoInternal("12:00 - Lunch break! Refuel time. What's cooking? ");
         _addTodoInternal("13:00 - Deep dive into coding. 4 hours minimum grind. Bug hunting season!");
-        _addTodoInternal("17:00 - Break time! Scroll TikTok, hydrate, stretch. Recharge.");
+        _addTodoInternal("17:00 - Break time! Scroll TikTok, hydrate, stretch. Recharge. ");
         _addTodoInternal("18:00 - Lisk Africa Bootcamp Class! Time to level up those blockchain skills.");
         _addTodoInternal("19:00 - Dinner time. Maybe cook something, maybe order in. Decisions, decisions.");
         _addTodoInternal("20:00 - Learn a NEW skill. Could be a new coding concept, drawing, language... something different!");
-        _addTodoInternal("21:00 - Chill time / Screen time. Binge a show, game, or just vibe with friends online. ");
+        _addTodoInternal("21:00 - Chill time / Screen time. Binge a show, game, or just vibe with friends online.");
         _addTodoInternal("22:30 - OFF SCREEN time. Put the phone AWAY. Read a book, journal, just exist. ");
         _addTodoInternal("23:00 - Wind down routine. Get ready for bed. Another day done! ");
-        _addTodoInternal("23:30 - Sleep. Finally. Zzzz... ");
+        _addTodoInternal("23:30 - Sleep. Finally. Zzzz...");
 
         // All initial tasks added! Ready to start checking them off.
     }
@@ -88,15 +88,17 @@ contract TodoList {
 
 
     /**
-     * @dev Add a new task to the list. Public facing function.
-     * @param _content The description of the task.
+     * @dev Adds a new task to the list. Public facing function.
+     * @param _content The description of the task. Cannot be an empty string.
      */
     function addTodo(string memory _content) public {
+        // Input validation: Ensure content is not an empty string.
+        require(bytes(_content).length > 0, "TodoList: Content cannot be empty.");
         _addTodoInternal(_content); // Use the internal helper
     }
 
     /**
-     * @dev Update the status of a task. Did I finish it? Am I working on it?
+     * @dev Updates the status of a task. Did I finish it? Am I working on it?
      * @param _id The ID of the task to update.
      * @param _status The new status (Pending, InProgress, Completed, Deleted).
      */
@@ -112,14 +114,16 @@ contract TodoList {
     }
 
     /**
-     * @dev Update the content of a task. Need to rephrase something?
+     * @dev Updates the content of a task. Need to rephrase something?
      * @param _id The ID of the task to update.
-     * @param _newContent The new description of the task.
+     * @param _newContent The new description of the task. Cannot be an empty string.
      */
     function updateContent(uint _id, string memory _newContent) public {
          // First, make sure this todo ID actually exists and isn't already marked as deleted.
-        require(_id < nextTodoId, "TodoList: Invalid todo ID. Does that task even exist? ");
+        require(_id < nextTodoId, "TodoList: Invalid todo ID. Does that task even exist?");
         require(!todos[_id].isDeleted, "TodoList: Cannot update content of a deleted todo.");
+        // Input validation: Ensure new content is not an empty string.
+        require(bytes(_newContent).length > 0, "TodoList: New content cannot be empty.");
 
         // Update the content of the task.
         todos[_id].content = _newContent;
@@ -129,12 +133,12 @@ contract TodoList {
 
 
     /**
-     * @dev Mark a todo as deleted. On blockchain, we usually mark instead of truly deleting.
+     * @dev Marks a todo as deleted. On blockchain, we usually mark instead of truly deleting.
      * @param _id The ID of the task to delete.
      */
     function deleteTodo(uint _id) public {
         // First, make sure this todo ID actually exists and isn't already marked as deleted.
-        require(_id < nextTodoId, "TodoList: Invalid todo ID. Does that task even exist? ");
+        require(_id < nextTodoId, "TodoList: Invalid todo ID. Does that task even exist?");
         require(!todos[_id].isDeleted, "TodoList: Todo is already deleted.");
 
         // Mark the todo as deleted.
@@ -151,7 +155,7 @@ contract TodoList {
 
 
     /**
-     * @dev Get the details of a specific task.
+     * @dev Gets the details of a specific task.
      * @param _id The ID of the task to retrieve.
      * @return id The task ID.
      * @return content The task description.
@@ -160,7 +164,7 @@ contract TodoList {
      */
     function getTodo(uint _id) public view returns (uint id, string memory content, TodoStatus status, bool isDeleted) {
         // Gotta check the ID again! Safety first!
-        require(_id < nextTodoId, "TodoList: Invalid todo ID. Seriously, does it exist? ");
+        require(_id < nextTodoId, "TodoList: Invalid todo ID. Seriously, does it exist?");
         // Get the todo from storage.
         Todo storage todo = todos[_id];
         // Return the details. Using 'memory' for the string!
@@ -168,7 +172,7 @@ contract TodoList {
     }
 
     /**
-     * @dev Get the total number of tasks in the list (including deleted ones).
+     * @dev Gets the total number of tasks in the list (including deleted ones).
      * @return The total count of tasks added.
      */
     function getTotalTodos() public view returns (uint) {
@@ -176,7 +180,7 @@ contract TodoList {
     }
 
     /**
-     * @dev Get all the todo IDs. Useful for frontends to iterate through tasks.
+     * @dev Gets all the todo IDs. Useful for frontends to iterate through tasks.
      * @return An array of all todo IDs.
      */
     function getAllTodoIds() public view returns (uint[] memory) {
@@ -184,7 +188,7 @@ contract TodoList {
     }
 
      /**
-     * @dev Get all todo items. This iterates through all IDs and fetches each todo.
+     * @dev Gets all todo items. This iterates through all IDs and fetches each todo.
      * Note: This can be gas-intensive for a very large number of todos.
      * @return An array of all Todo structs.
      */
